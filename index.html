@@ -1,0 +1,219 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form validation</title>
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: rgb(13, 43, 56);
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+          
+            box-sizing: border-box;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .form{
+            width: 500px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            
+        }
+        .input-filed {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 10px;
+          padding-bottom: 5px;
+          position: relative;
+          
+
+          
+        }
+        .input-filed label{
+            font-size: 20px;
+        }
+        .input-filed input{
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px solid rgb(13, 43, 56);
+            font-size: 20px;
+            font-weight: bold;
+            outline: none;
+        }
+        .input-filed input:focus{
+            outline: none;
+        }
+        .errored{
+            color: red;
+            font-size: 15px;
+            font-weight: bold;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            padding: 3px;
+            margin: 2px;
+
+        }
+        .btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn button{
+            width: 200px;
+            height: 40px;
+            border-radius: 15px;
+            border: 1px solid rgb(13, 43, 56);
+            background-color: rgb(13, 43, 56);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+            margin-top: 10px;
+            outline: none;
+        }
+        .btn button:hover{
+            background-color: rgb(51, 130, 164);
+            color: white;
+        }
+        .btn button:focus{
+            outline: none;
+        }
+        .success{
+            color : rgb(8, 74, 8);
+        }
+       
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <form class="form" action="">
+
+            <div class="input-filed">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="contact-name" onkeyup="validateName()"     placeholder="Enter your name">
+                <span id="errorName"  class="errored"></span>
+                
+            </div>
+            <div class="input-filed">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="input-filed">
+                <label for="phone">Phone Number</label>
+                <input type="phone" name="phone" id="contact-number"   
+                onkeyup="validateNumber()" placeholder="Enter your Number">
+                <span id="errorPhone"  class="errored"></span>
+            </div>
+            <div class="input-filed">
+                <label for="message">Message</label>
+                <input type="text" name="phone" id="message-contact" placeholder="Enter Your Message">
+                <span></span>
+
+                <div class="btn">
+                    <button onclick="btnValidation()"  type="submit">Submit</button>
+                </div>
+                <span id="btnerror"  class="errored"> </span>
+            </div>
+            
+            
+        </form>
+    </div>
+</body>
+   
+
+
+<script>
+ var errorName = document.getElementById("errorName");
+ 
+ var errorPhone = document.getElementById("errorPhone");
+
+ var btnerror = document.getElementById("btnerror");
+ 
+ function validateNumber(){
+    var phone = document.getElementById("contact-number").value;
+    if(phone==""){
+        errorPhone.innerHTML= "please enter a valid Number"
+        errorPhone.className = "errored"
+        return false;
+    }
+   
+
+    if(!phone.match(/^[0-9]{9}$/)){
+        errorPhone.innerHTML= "please 9 digit Number"
+        errorPhone.className = "errored"
+        return false;
+    }
+    errorPhone.innerHTML= "Valide Number"
+    errorPhone.className = "success"
+    return true;
+
+ }
+
+
+function validateName(){
+    var name = document.getElementById("contact-name").value;
+
+    if(name.length==0){
+      errorName.innerHTML= "please enter a valid Name"
+      errorName.className = "errored"
+      
+
+    }
+    if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)){
+        errorName.innerHTML= "Write Full Name"
+      errorName.className = "errored"
+      return false;
+    }
+    errorName.innerHTML= "Valide Name"
+    errorName.className = "success"
+    return true;
+
+}
+
+ function btnValidation(){
+    if(!validateName() || !validateNumber()){
+
+        
+        document.getElementById("btnerror").innerHTML = "Please fill the form correctly"
+        document.getElementById("btnerror").className = "errored"
+        btnerror.style.display = "block";
+        return false;
+    }
+    btnerror.innerHTML = "Form Submitted"
+    btnerror.className= "success";
+    return true;
+     setTimeout(function() {
+        btnerror.style.display = "none";
+     }, 30000);
+    }
+
+
+
+</script>
+</html>

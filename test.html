@@ -1,0 +1,258 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form validation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: rgb(13, 43, 56);
+        }
+
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            
+            color: white;
+           
+           
+            
+        }
+
+        form{
+            width: 500px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding: 20px;
+           
+            
+        }
+        .input-field{
+           display: flex;
+           flex-direction: row;
+          align-items: center;
+          position: relative;
+          
+        }
+
+    .input-field input{
+           width: 400px;
+           height: 40px;
+          
+            margin: 10px;
+            padding: 10px;
+            flex-grow: 1;
+            margin-right: 10px;
+            
+            outline: none;
+            border-radius: 20px;
+            border: 1px solid rgb(13, 43, 56);
+            font-size: 15px;
+            font-weight: 500;
+            
+            cursor: pointer;
+            
+            
+        }
+
+         ::placeholder{
+            color: rgb(13, 43, 56);
+            font-size: 15px;
+            font-weight: 500;
+            margin: 4px;
+            padding: 4px;
+            
+        }
+
+        
+        
+
+        .btn button{
+            width: 200px;
+            height: 40px;
+            border-radius: 15px;
+            border: 1px solid rgb(13, 43, 56);
+            background-color: rgb(13, 43, 56);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+           
+            cursor: pointer;
+            margin-top: 10px;
+            outline: none;
+        }
+        .btn p{
+        color: rgb(255, 7, 7);
+        }
+     .img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+     }
+        
+
+    img{
+        width: 16px;
+        height: 16px;
+        
+    }
+    .fa-eye {
+    position: absolute;
+    right: 40px; /* Adjust based on your design */
+    color: black;
+    cursor: pointer;
+
+}
+
+    </style>
+
+
+</head>
+<body>
+  
+    <div class="container">
+        <form action="">
+            <div class="input-field">
+                
+                <input type="text" id="contact-name" name="name" placeholder="Ente Your Name" onkeyup="validateName()"   >
+                <span id="errorName"  class="img"><img src="" alt="" srcset=""   ></span>
+            </div>
+            <div class="input-field">
+                
+                <input type="email" id="email-contact" name="email"  placeholder="Enter Your Email" onkeyup="validateEmail()"    >
+                <span id="errorEmail"  class="img"><img src="" alt="" srcset=""></span>
+            </div>
+            <div class="input-field">
+                
+                <input type="password" id="password-error" type="password" name="password" placeholder="Enter Your Password" onkeyup="validatePassword()"   >
+                <i class="fa fa-eye" onclick="eye()" style="cursor: pointer;"></i>
+
+                <span id="errorPassword"  class="img"><img src="" alt="" srcset=""></span>
+            </div>
+            <div class="input-field">
+                <input type="password" id="Confirm-password" name="password" placeholder=" Confirm Your password"  onkeyup="validatecPassword()"  >
+                <span id="errorcPassword"   class="img"></span>
+               
+            </div>
+            <div class="btn">
+                
+            <button onclick="validateForm()" value="Submit" type="button">Submit</button>
+            <div class="errormessage">
+                <p id="fillForm"></p>
+            </div>
+            </div>
+        </form>
+    </div>
+
+<script>
+    var errorName = document.getElementById('errorName');
+
+    var errorEmail = document.getElementById('errorEmail');
+    var errorPassword =document.getElementById('errorPassword');
+    var errorcPassword = document.getElementById('errorcPassword');
+    var fillForm = document.getElementById('fillForm');
+
+
+   
+    
+
+    function validatePassword(){
+        var  password = document.getElementById("password-error").value;
+        if(password.length<=8 || password.length>=15){
+            errorPassword.innerHTML =  "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false
+        }
+        errorPassword.innerHTML = "<img src='/form validation/checked.png' alt='Valide'>";
+        return true;
+    }
+
+    function eye(){
+        var x = document.getElementById("password-error");
+        if(x.type === "password"){
+            x.type = "text";
+        }
+        
+        else{
+            x.type = "password";
+        };
+       
+    };
+
+    function validatecPassword (){
+        var  password = document.getElementById("password-error").value;
+        var confirmPassword = document.getElementById("Confirm-password").value;
+        if(confirmPassword.length==0){
+            errorcPassword.innerHTML = "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false;
+        }
+        if(confirmPassword!==password){
+            errorcPassword.innerHTML = "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false;
+        }
+        errorcPassword.innerHTML = "<img src='/form validation/checked.png' alt='Valide'>";
+        return true;
+    }
+
+    function validateEmail(){
+        var email = document.getElementById("email-contact").value;
+        if(email.length==0){
+            errorEmail.innerHTML= "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false;
+        }
+        if(!email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)){
+            errorEmail.innerHTML= "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false;
+        }
+        errorEmail.innerHTML = "<img src='/form validation/checked.png' alt='Valide'>";
+        return true;   
+     }
+
+    function validateName(){ 
+        var name = document.getElementById("contact-name").value;
+         if(name.length==0){
+            errorName.innerHTML= "<img src='/form validation/warning.png' alt='Warning'> ";
+            return false;
+         }
+         errorName.innerHTML = "<img src='/form validation/checked.png' alt='Valide'>";
+         return true;
+    }  
+
+
+    function validateForm(){
+        if(!validateName() || !validateEmail() || !validatePassword() || !validatecPassword()){
+            fillForm.innerHTML = "Please fill the form correctly";
+            return false;
+        }
+        fillForm.innerHTML = "";
+        window.location.href = 'thankyou.html'; // Redirects to the "thank you" page
+        return true;
+    }
+</script> 
+
+
+
+
+</body>
+</html>
